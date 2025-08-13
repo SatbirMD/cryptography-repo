@@ -6,6 +6,9 @@ public class CaesarCipher {
     public static String encrypt(String text, int shift) {
         StringBuilder result = new StringBuilder();
         
+        // Normalize shift to be within 0-25 range to handle negative shifts properly
+        shift = ((shift % 26) + 26) % 26;
+        
         for (char character : text.toCharArray()) {
             if (Character.isLetter(character)) {
                 char base = Character.isUpperCase(character) ? 'A' : 'a';
@@ -19,7 +22,8 @@ public class CaesarCipher {
     }
     
     public static String decrypt(String text, int shift) {
-        return encrypt(text, 26 - shift);
+        // Use negative shift for decryption to properly handle all shift values
+        return encrypt(text, -shift);
     }
     
     public static void main(String[] args) {
